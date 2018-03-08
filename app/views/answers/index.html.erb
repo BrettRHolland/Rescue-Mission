@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col">
+
+    <div class="jumbotron px-4 py-5">
+      <h1 class="display-4"><%= @question.title %></h1>
+      <p class="lead"><%= @question.description %></p>
+      <%= link_to 'Edit', edit_question_path(@question), class: "btn btn-secondary btn-sm" %>
+      <%= link_to 'Delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+    </div>
+
+    <% @answers.each do |answer| %>
+      <% if answer.best %>
+        <div class="card text-white bg-primary my-4">
+          <h5 class="card-header">Best Answer</h5>
+          <div class="card-body">
+            <p class="card-text"><%= answer.description %></p>
+            <%= link_to "Best", question_answer_path(@question, answer, :best => true), :method => :put, :confirm => "Are you sure?", class: "btn btn-light btn-sm" %>
+          </div>
+        </div>
+      <% else %>
+
+        <div class="card my-4">
+          <div class="card-body">
+            <p class="card-text"><%= answer.description %></p>
+            <%= link_to "Best", question_answer_path(@question, answer, :best => true), :method => :put, :confirm => "Are you sure?", class: "btn btn-outline-primary btn-sm" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <h5 class="mt-5">Add answer</h5>
+    <%= form_for [@question, @answer] do |f| %>
+    <div class="form-group">
+      <%= f.text_area :description, class: "form-control", placeholder: "Answer the question..." %>
+      <small class="form-text text-muted">Answer must be at least 50 characters</small>
+    </div>
+
+    <%= f.submit "Answer", class: "btn btn-primary" %>
+  <% end %>
+
+</div>
+</div>
