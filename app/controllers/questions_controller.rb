@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
       flash[:notice] = "Question added successfully."
       redirect_to question_answers_path(@question)
     else
-      flash[:alert] = @question.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @question.errors.full_messages.first
       render :new
     end
   end
@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
       flash[:notice] = "Questions was successfully updated."
       redirect_to question_answers_path(@question)
     else
-      flash[:alert] = @question.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @question.errors.full_messages.first
       render :edit
     end
   end

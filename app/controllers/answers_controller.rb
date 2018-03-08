@@ -15,7 +15,7 @@ class AnswersController < ApplicationController
       flash[:notice] = "Answer added successfully."
       redirect_to question_answers_path(@question)
     else
-      flash[:alert] = @answer.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @answer.errors.full_messages.first
       redirect_to question_answers_path(@question)
     end
   end
